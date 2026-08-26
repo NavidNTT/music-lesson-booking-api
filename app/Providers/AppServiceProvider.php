@@ -15,17 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Bind the Payment Gateway Interface to a concrete implementation.
-        // Swap the implementation here when switching to Stripe, PayPal, etc.
-        $this->app->bind(PaymentGatewayInterface::class, function () {
-            // For now, we use a local wallet-based payment system.
-            // Replace with StripePaymentGateway::class or PayPalPaymentGateway::class.
-            throw new \RuntimeException(
-                'No payment gateway implementation bound. '.
-                'Bind a concrete implementation in AppServiceProvider, e.g.: '.
-                '\n  $this->app->bind(PaymentGatewayInterface::class, StripePaymentGateway::class);'
-            );
-        });
+            // Local gateway for dev/staging. Swap for Stripe/PayPal in production.
+    $this->app->bind(
+        \App\Domain\Wallet\Services\PaymentGatewayInterface::class,
+        \App\Domain\Wallet\Services\LocalWalletPaymentGateway::class
+    );
     }
 
     /**
@@ -33,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        
         // The API's verification route is named api.v1.verification.verify,
         // so the default notification (which expects "verification.verify")
         // needs a custom URL builder.

@@ -54,6 +54,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Refresh Window Days
+    |--------------------------------------------------------------------------
+    |
+    | Tokens older than this many days cannot be refreshed — the user must
+    | log in again. This should be at least as long as 'expiration'.
+    |
+    */
+
+    'refresh_window_days' => (int) env('SANCTUM_REFRESH_WINDOW_DAYS', 7),
+
+    /*
+    |--------------------------------------------------------------------------
     | Token Prefix
     |--------------------------------------------------------------------------
     |

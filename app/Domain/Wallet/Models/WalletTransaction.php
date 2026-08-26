@@ -15,6 +15,11 @@ class WalletTransaction extends Model
         'reference_id',
         'status',
         'description',
+        'idempotency_key',
+        'gateway',
+        'external_transaction_id',
+        'currency',
+        'failure_reason',
     ];
 
     protected $casts = [
@@ -24,5 +29,20 @@ class WalletTransaction extends Model
     public function wallet(): BelongsTo
     {
         return $this->belongsTo(Wallet::class);
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->status === 'success';
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === 'pending';
+    }
+
+    public function isFailed(): bool
+    {
+        return $this->status === 'failed';
     }
 }

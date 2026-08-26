@@ -18,6 +18,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'avatar_url' => $this->avatar_path
+                ? url('storage/'.$this->avatar_path)
+                : null,
             'role' => $this->role instanceof BackedEnum
                 ? $this->role->value
                 : $this->role,

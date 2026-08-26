@@ -18,6 +18,11 @@ class WalletTransactionResource extends JsonResource
             'reference_id' => $this->reference_id,
             'status' => $this->status,
             'description' => $this->description,
+            'idempotency_key' => $this->idempotency_key,
+            'gateway' => $this->gateway,
+            'external_transaction_id' => $this->external_transaction_id,
+            'currency' => $this->currency,
+            'failure_reason' => $this->failure_reason,
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
         ];
